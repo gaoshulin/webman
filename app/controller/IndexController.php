@@ -4,6 +4,7 @@ namespace app\controller;
 
 use support\Request;
 use support\View;
+use support\Db;
 
 class IndexController
 {
@@ -48,5 +49,17 @@ class IndexController
         return json(['code' => 0, 'msg' => 'ok', 'data' => ['name' => $name]]);
     }
 
+    // 使用数据库
+    public function db(Request $request)
+    {
+        $uid = 1;
+        $uid = $request->get('uid', $uid);
+        $user = Db::table('user_infos')->where('id', $uid)->first();
+
+        // 可以使用其他数据库 修改 connection()
+        // $user = Db::connection('mysql')->table('user_infos')->where('id', $uid)->first();
+
+        return json(['code' => 0, 'msg' => 'ok', 'data' => $user]);
+    }
 
 }
