@@ -3,6 +3,7 @@
 namespace app\controller;
 
 use support\Request;
+use support\View;
 
 class IndexController
 {
@@ -15,6 +16,13 @@ class IndexController
     // 127.0.0.1:8787/index/view
     public function view(Request $request)
     {
+        // 给模版赋值
+        View::assign('title', 'hello world');
+        View::assign([
+            'name' => 'galen',
+            'age' => 25,
+        ]);
+
         return view('index/view', ['name' => 'webman']);
     }
 

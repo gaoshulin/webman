@@ -18,5 +18,8 @@ use support\view\Blade;
 use support\view\ThinkPHP;
 
 return [
-    'handler' => Raw::class
+    // 'handler' => Raw::class
+    // 'handler' => Twig::class,
+     'handler' => Blade::class,
+
 ];
