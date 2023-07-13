@@ -5,6 +5,8 @@ namespace app\controller;
 use support\Request;
 use support\View;
 use support\Db;
+use support\Redis;
+
 
 class IndexController
 {
@@ -61,5 +63,20 @@ class IndexController
 
         return json(['code' => 0, 'msg' => 'ok', 'data' => $user]);
     }
+
+    // 使用 redis
+    public function redis(Request $request)
+    {
+        $key = 'user:id:';
+
+        $uid = 1;
+        $uid = $request->get('uid', $uid);
+
+        Redis::set($key, $uid);
+        $redisUid = Redis::get($key);
+
+        return response($redisUid);
+    }
+
 
 }
