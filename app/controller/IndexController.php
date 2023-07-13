@@ -10,7 +10,20 @@ class IndexController
     // 127.0.0.1:8787/index
     public function index(Request $request)
     {
-        return response('hello webman');
+        // return response('hello webman');
+
+        // 创建 response 对象
+        $response = response();
+
+        // 设置http头
+        $response->header('Content-Type', 'application/json');
+
+        // 设置 cookie
+        $response->cookie('foo', 'value');
+
+        // 设置要返回的数据
+        $response->withBody('hello world');
+        return $response;
     }
 
     // 127.0.0.1:8787/index/view
@@ -29,6 +42,11 @@ class IndexController
     // 127.0.0.1:8787/index/json
     public function json(Request $request)
     {
-        return json(['code' => 0, 'msg' => 'ok']);
+        $defaultName = 'webman';
+        $name = $request->get('name', $defaultName);
+
+        return json(['code' => 0, 'msg' => 'ok', 'data' => ['name' => $name]]);
     }
+
+
 }
